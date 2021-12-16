@@ -50,6 +50,8 @@
         margin-left: 0.1em;
         border: hidden;
         text-align: center;
+        appearance: textfield;
+        -webkit-appearance: none;
       }
       input:focus {
         outline: 0;
@@ -118,10 +120,15 @@
   <body>
     <div class="vbox hcenter">
       <h1 id="output">CL!CK</h1>
-      <div class="vbox cpadding hcenter">
+      <form class="vbox cpadding hcenter" onsubmit="convert();return false;">
         <div class="in_field hbox">
           <select name="first_grinder" id="first_grinder"></select>
-          <input type="text" id="click_input" />
+          <input
+            type="text"
+            pattern="[0-9]*"
+            inputmode="numeric"
+            id="click_input"
+          />
         </div>
         <p class="txtbig">TO</p>
         <select
@@ -129,7 +136,7 @@
           name="second_grinder"
           id="second_grinder"
         ></select>
-      </div>
+      </form>
       <button onclick="convert()">CONVERT!</button>
     </div>
   </body>
