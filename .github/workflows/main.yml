@@ -1,0 +1,33 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.4.0
+
+      - name: Install emscripten
+        uses: mymindstorm/setup-emsdk@v11
+        with:
+          version: 3.0.0
+          actions-cache-folder: 'emsdk-cache'
+          
+      - name: Verify
+        run: emcc -v
+      
+      - name: Install and Build 🔧
+        run: |          
+          npm i -g html-minifier
+          emcmake cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cd build
+          make
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: dist
