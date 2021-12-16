@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
+project(Grinders VERSION 1)
+add_library(grinders grinders.cpp)
+set_target_properties(grinders PROPERTIES CXX_STANDARD 20)
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  target_compile_options(grinders PRIVATE "-Wall")
+  target_compile_options(grinders PRIVATE "-Wextra")
+  target_compile_options(grinders PRIVATE "-pedantic")
+  target_compile_options(grinders PRIVATE "-Werror")
+  target_compile_options(grinders PRIVATE "-Wno-sign-compare")
+endif()
+
+target_include_directories(grinders PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(grinders PRIVATE utility)

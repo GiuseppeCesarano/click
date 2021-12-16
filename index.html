@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#7b1fa2" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>CL!CK</title>
+    <style type="text/css" media="screen">
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Bold.woff2")
+            format("woff2"),
+          url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Bold.ttf")
+            format("truetype");
+        font-weight: Bold;
+        font-style: Bold;
+      }
+      * {
+        font-family: "JetBrains Mono";
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        background-color: #7b1fa2;
+        margin: 0;
+      }
+      h1 {
+        text-align: center;
+        color: #ffeb3b;
+        font-size: 10.2em;
+        text-shadow: -10px 10px 2px #000;
+        -webkit-text-stroke: 4px #000;
+        text-stroke: 4px #000;
+        height: fit-content;
+        user-select: none;
+      }
+      select {
+        border: 0;
+        border-right: solid #4a0072;
+        padding: 0.15em;
+        text-align: center;
+      }
+      input {
+        width: 4em;
+        margin-left: 0.1em;
+        border: hidden;
+        text-align: center;
+      }
+      input:focus {
+        outline: 0;
+      }
+      .hbox {
+        display: flex;
+      }
+      .vbox {
+        display: flex;
+        flex-direction: column;
+      }
+      .hcenter {
+        align-items: center;
+      }
+      .cpadding > * {
+        margin: 0.5em;
+      }
+      .txtbig {
+        font-weight: 700;
+        font-size: 1.5em;
+      }
+      select,
+      input,
+      button,
+      .in_field {
+        border-radius: 20px;
+      }
+      select,
+      input {
+        font-size: 1.5em;
+        background-color: #fff;
+        color: #000;
+      }
+      .in_field {
+        box-shadow: -2px 2px 2px;
+        background-color: #fff;
+        border: solid #4a0072;
+        width: fit-content;
+      }
+      .in_field > select {
+        box-shadow: 1px 2px 2px;
+      }
+      button {
+        box-shadow: -2px 2px 2px #000;
+        margin-top: 2em;
+        color: #000;
+        background-color: #ffeb3b;
+        border-right: solid #4a0072;
+        font-size: 1.5em;
+        padding: 0.4em;
+        border: hidden;
+        font-weight: 700;
+      }
+      button:hover {
+        background-color: #ffca28;
+      }
+      @media only screen and (max-width: 600px) {
+        h1 {
+          margin-top: 0.4em;
+          font-size: 7em;
+        }
+      }
+    </style>
+    <script src="click.js"></script>
+  </head>
+  <body>
+    <div class="vbox hcenter">
+      <h1 id="output">CL!CK</h1>
+      <div class="vbox cpadding hcenter">
+        <div class="in_field hbox">
+          <select name="first_grinder" id="first_grinder"></select>
+          <input type="text" id="click_input" />
+        </div>
+        <p class="txtbig">TO</p>
+        <select
+          class="in_field"
+          name="second_grinder"
+          id="second_grinder"
+        ></select>
+      </div>
+      <button onclick="convert()">CONVERT!</button>
+    </div>
+  </body>
+  <script charset="utf-8">
+    var first_grinder_selector = document.getElementById("first_grinder");
+    var second_grinder_selector = document.getElementById("second_grinder");
+    var Module = {
+      onRuntimeInitialized: function () {
+        var grinders = Module.coma_separated_grinders().split(",");
+
+        for (var i = 0; i < grinders.length; i++) {
+          var opts = [];
+          for (var j = 0; j < 2; j++) {
+            opts[j] = document.createElement("option");
+            opts[j].textContent = grinders[i];
+            opts[j].value = i;
+          }
+          first_grinder_selector.appendChild(opts[0]);
+          second_grinder_selector.appendChild(opts[1]);
+        }
+      },
+    };
+
+    function convert() {
+      document.getElementById("output").textContent = Module.convert_setting(
+        document.getElementById("first_grinder").selectedIndex,
+        document.getElementById("click_input").value,
+        document.getElementById("second_grinder").selectedIndex
+      );
+    }
+  </script>
+</html>
