@@ -83,10 +83,11 @@ template <const size_t CLICKS_PER_ROTATION, const size_t CLICKS_PER_NUMBER>
 const auto GRINDERS { []() consteval {
   using namespace std::literals::string_view_literals;
 
-  const std::array<std::pair<std::string_view, grinder>, 4> grinders {{ 
+  const std::array<std::pair<std::string_view, grinder>, 5> grinders {{ 
     { "C40"sv, { 18, &utl::stpi, &utl::pits } },
     { "C40 Red Clicks"sv, { 36, &utl::stpi, &utl::pits } },
     { "Mini Mill"sv, { 8, &utl::stpi, &utl::pits } },
+    { "Skerton Pro"sv, { 8, &utl::stpi, &utl::pits } },
     { "JX-PRO"sv, { 113, &readable_to_clicks<40, 4>, &clicks_to_readable<40, 4> } } 
   }};
 

@@ -31,5 +31,12 @@
 *.out
 *.app
 
+# Build folders
 dist/
 build/
+
+# Compile commands
+compile_commands.json
+
+# Clangd chache
+.cache
