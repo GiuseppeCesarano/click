@@ -9,12 +9,14 @@
     <style type="text/css" media="screen">
       @font-face {
         font-family: "JetBrains Mono";
-        src: url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Bold.woff2")
+        src: local("JetBrains Mono"),
+          url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Bold.woff2")
             format("woff2"),
           url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Bold.ttf")
             format("truetype");
         font-weight: Bold;
         font-style: Bold;
+        font-display: swap;
       }
       * {
         font-family: "JetBrains Mono";
@@ -118,7 +120,6 @@
         }
       }
     </style>
-    <script src="click.js"></script>
   </head>
   <body>
     <div class="vbox hcenter">
@@ -143,6 +144,7 @@
       <button onclick="convert()">CONVERT!</button>
     </div>
   </body>
+  <script src="click.js"></script>
   <script charset="utf-8">
     var first_grinder_selector = document.getElementById("first_grinder");
     var second_grinder_selector = document.getElementById("second_grinder");
