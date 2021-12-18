@@ -1,5 +1,5 @@
-#include "libs/grinders/grinders.hpp"
-#include "libs/utility/utility.hpp"
+#include <grinders/grinders.hpp>
+#include <utility/utility.hpp>
 
 #include <sstream>
 #include <string>

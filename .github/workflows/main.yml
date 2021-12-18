@@ -22,9 +22,7 @@ jobs:
       - name: Install and Build 🔧
         run: |          
           npm i -g html-minifier
-          emcmake cmake -B build -DCMAKE_BUILD_TYPE=Release
-          cd build
-          make
+          python3 build.py
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7

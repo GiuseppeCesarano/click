@@ -11,5 +11,5 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
   target_compile_options(grinders PRIVATE "-Wno-sign-compare")
 endif()
 
-target_include_directories(grinders PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_include_directories(grinders PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_link_libraries(grinders PRIVATE utility)
