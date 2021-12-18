@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 #include <cmath>
 #include <initializer_list>
 #include <sstream>
@@ -44,23 +45,18 @@ class grinder {
 };
 
 // Needed to avoid a temporary creation that resoults in a non-constexpr constructor
-constexpr std::initializer_list<int> JX_PRO_FORMAT_VALUES { 40, 4, 1 };
+PYTHON_INITIALIZER
 
-// clang-format off
 const auto GRINDERS { []() consteval {
-  using namespace std::literals::string_view_literals;
+    using namespace std::literals::string_view_literals;
 
-  const std::array<std::pair<std::string_view, grinder>, 5> grinders {{ 
-    { "C40"sv, grinder {18} },
-    { "C40 Red Clicks"sv, grinder {36} },
-    { "Mini Mill"sv, grinder {8} },
-    { "Skerton Pro"sv, grinder {8} },
-    { "JX-PRO"sv, grinder{113, JX_PRO_FORMAT_VALUES}}
-  }};
+const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { {PYTHON_MAP} };
 
-  return utl::map { grinders };
-}()};
-// clang-format on
+return utl::map { grinders };
+}
+()
+}
+;
 
 constexpr auto supported_grinders() noexcept
 {

@@ -126,7 +126,7 @@
       <h1 id="output">CL!CK</h1>
       <form class="vbox cpadding hcenter" onsubmit="convert();return false;">
         <div class="in_field hbox">
-          <select name="first_grinder" id="first_grinder"></select>
+          <select name="first_grinder" id="first_grinder"><PYTHON_OPTIONS></select>
           <input
             type="text"
             pattern="[0-9]*"
@@ -139,31 +139,14 @@
           class="in_field"
           name="second_grinder"
           id="second_grinder"
-        ></select>
+          ><PYTHON_OPTIONS></select>
       </form>
       <button onclick="convert()">CONVERT!</button>
     </div>
   </body>
   <script src="click.js"></script>
   <script charset="utf-8">
-    var first_grinder_selector = document.getElementById("first_grinder");
-    var second_grinder_selector = document.getElementById("second_grinder");
-    var Module = {
-      onRuntimeInitialized: function () {
-        var grinders = Module.coma_separated_grinders().split(",");
-
-        for (var i = 0; i < grinders.length; i++) {
-          var opts = [];
-          for (var j = 0; j < 2; j++) {
-            opts[j] = document.createElement("option");
-            opts[j].textContent = grinders[i];
-            opts[j].value = i;
-          }
-          first_grinder_selector.appendChild(opts[0]);
-          second_grinder_selector.appendChild(opts[1]);
-        }
-      },
-    };
+    var Module = {onRuntimeInitialized: function () {}};
 
     function convert() {
       document.getElementById("output").textContent = Module.convert_setting(
