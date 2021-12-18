@@ -1,4 +1,5 @@
 #pragma once
+#include "python_decl.hpp"
 #include <array>
 #include <cmath>
 #include <initializer_list>
@@ -47,16 +48,13 @@ class grinder {
 // Needed to avoid a temporary creation that resoults in a non-constexpr constructor
 PYTHON_INITIALIZER
 
+// clang-format off
 const auto GRINDERS { []() consteval {
     using namespace std::literals::string_view_literals;
-
-const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { {PYTHON_MAP} };
-
+const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
 return utl::map { grinders };
-}
-()
-}
-;
+}()};
+// clang-format on
 
 constexpr auto supported_grinders() noexcept
 {
