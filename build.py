@@ -62,6 +62,8 @@ with open("dist/index.html", "r+") as index:
 system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release && cmake --build .")
 
 # Minify html
-system("html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true dist/index.html -o dist/index.html")
-system("html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true src/manifest.webmanifest -o dist/manifest.webmanifest")
-system("html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true src/sw.js -o dist/sw.js")
+MINIFY_CMD = "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true --minifyURLs true {} -o {}"
+
+system(MINIFY_CMD.format("dist/index.html","dist/index.html"))
+system(MINIFY_CMD.format("src/manifest.webmanifest","dist/manifest.webmanifest"))
+system(MINIFY_CMD.format("src/sw.js","dist/sw.js"))
