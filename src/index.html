@@ -146,7 +146,9 @@
   </body>
   <script src="click.js"></script>
   <script charset="utf-8">
-    var Module = {onRuntimeInitialized: function () {}};
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    };
 
     function convert() {
       document.getElementById("output").textContent = Module.convert_setting(
