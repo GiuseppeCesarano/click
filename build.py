@@ -1,6 +1,7 @@
 from os import mkdir, system
 from os.path import exists, isdir
 from shutil import copy2, copytree, rmtree
+import sys
 
 if not (exists("dist") and isdir("dist")):
     mkdir("dist")
@@ -62,12 +63,15 @@ with open("dist/index.html", "r+") as index:
     index.seek(0)
     index.write(index_text)
 
-# Build wasm
-system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=Yes && cmake --build .")
-
 # Minify html
 MINIFY_CMD = "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true --minifyURLs true {} -o {}"
 
-system(MINIFY_CMD.format("dist/index.html", "dist/index.html"))
-system(MINIFY_CMD.format("src/manifest.webmanifest", "dist/manifest.webmanifest"))
-system(MINIFY_CMD.format("src/sw.js", "dist/sw.js"))
+ret = 0
+ret += system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=Yes && cmake --build .")
+ret += system(MINIFY_CMD.format("dist/index.html", "dist/index.html"))
+ret += system(MINIFY_CMD.format("src/manifest.webmanifest",
+              "dist/manifest.webmanifest"))
+ret += system(MINIFY_CMD.format("src/sw.js", "dist/sw.js"))
+
+if ret > 0:
+    sys.exit("Build failed")
