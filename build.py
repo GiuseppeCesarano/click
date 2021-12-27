@@ -14,7 +14,9 @@ if not(exists("dist/icons/") and isdir("dist/icons/")):
 copy2("src/index.html", "dist")
 
 # Populating build
-rmtree("build/libs")
+
+if exists("build/libs/") and isdir("build/libs/"):
+    rmtree("build/libs")
 copytree("src/libs", "build/libs")
 
 copy2("src/CMakeLists.txt", "build")
