@@ -166,6 +166,7 @@
             caches.delete(cache_name);
             const new_cache = await caches.open(cache_name);
             new_cache.put("ghash",new Response(gh_hash, {}));
+            location.reload();
           }
         }
       }
