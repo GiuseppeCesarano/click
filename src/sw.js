@@ -1,4 +1,4 @@
-const cache_name = "click-v1";
+const cache_name = "click";
 const content_to_cache = [
   "index.html",
   "click.js",
@@ -28,37 +28,4 @@ self.addEventListener("fetch", (e) => {
       return response;
     })()
   );
-});
-
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys().then((keyList) => {
-      return Promise.all(
-        keyList.map((key) => {
-          if (key === cache_name) {
-            return;
-          }
-          return caches.delete(key);
-        })
-      );
-    })
-  );
-
-  fetch("https://api.github.com/repos/giuseppecesarano/click/commits/gh-pages")
-    .then((response) => response.json())
-    .then((data) => data.sha)
-    .then(async (sha) => {
-      if (sha != "") {
-        ch = await caches.match("commit_hash");
-        if (ch == undefined) {
-          const cache = await caches.open(cache_name);
-          cache.put("commit_hash", new Response(sha, {}));
-        } else {
-          const hash = await ch.text();
-          if (sha != hash) {
-            caches.delete(cache_name);
-          }
-        }
-      }
-    });
 });

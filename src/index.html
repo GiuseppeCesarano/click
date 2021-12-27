@@ -146,6 +146,31 @@
   </body>
   <script src="click.js"></script>
   <script charset="utf-8">
+
+    window.addEventListener('load', async () => {
+      const cache_name = "click";
+      const gh_hash = await fetch("https://api.github.com/repos/giuseppecesarano/click/commits/gh-pages")
+        .then((response) => response.json())
+        .then((data) => data.sha);
+
+      const cache = await caches.open(cache_name);
+
+      if (gh_hash != ""){
+        const local_hash_promise = await cache.match("ghash");
+        if(local_hash_promise === undefined){
+          cache.put("ghash",new Response(gh_hash, {}));
+        }
+        else{
+          local_hash = await local_hash_promise.text();
+          if(local_hash != gh_hash){
+            caches.delete(cache_name);
+            const new_cache = await caches.open(cache_name);
+            new_cache.put("ghash",new Response(gh_hash, {}));
+          }
+        }
+      }
+    });
+
     if('serviceWorker' in navigator) {
       navigator.serviceWorker.register("sw.js");
     };
