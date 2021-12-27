@@ -61,7 +61,7 @@ with open("dist/index.html", "r+") as index:
     index.write(index_text)
 
 # Build wasm
-system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release && cmake --build .")
+system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_EXPORT_COMPILE_COMMANDS=Yes && cmake --build .")
 
 # Minify html
 MINIFY_CMD = "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true --minifyURLs true {} -o {}"
