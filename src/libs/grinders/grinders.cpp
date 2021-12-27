@@ -1,7 +1,7 @@
 #include "grinders.hpp"
-#include <utility/utility.hpp>
 #include <array>
 #include <string>
+#include <utility/utility.hpp>
 
 constexpr double grinder::click_value() const noexcept
 {

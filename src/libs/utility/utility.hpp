@@ -18,7 +18,7 @@ class map {
   const value ERROR_VALUE {};
 
   public:
-  explicit consteval map(data_array d)
+  explicit consteval map(data_array d) noexcept
       : data(std::move(d))
   {
   }
