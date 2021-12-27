@@ -1,5 +1,6 @@
 C40,18
 C40 Red Clicks,36
 Mini Mill,5
+Smart-G,5
 Skerton Pro,5
 JX-PRO,103,40,4,1
