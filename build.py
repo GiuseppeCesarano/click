@@ -68,7 +68,7 @@ with open("dist/index.html", "r+") as index:
 with open("dist/sw.js", "r+") as sw:
     sw_text = sw.read()
     sw_text = sw_text.replace(
-        "CLICK", datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+        "CLICK", datetime.now().strftime("%d/%m/%Y, %H:%M:%S"))
     sw.seek(0)
     sw.write(sw_text)
 
