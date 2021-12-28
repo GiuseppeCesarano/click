@@ -2,6 +2,7 @@ from os import mkdir, system
 from os.path import exists, isdir
 from shutil import copy2, copytree, rmtree
 from datetime import datetime
+from operator import itemgetter
 import sys
 
 if not (exists("dist") and isdir("dist")):
@@ -32,6 +33,7 @@ with open("grinders.txt") as grinders_file:
         l = line[:-1].split(',')
         grinder_list.append(l)
 
+grinder_list = sorted(grinder_list, key=itemgetter(0))
 init_list = []
 map = []
 
