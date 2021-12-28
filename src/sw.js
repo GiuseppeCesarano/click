@@ -1,4 +1,4 @@
-const cache_name = "click";
+const cache_name = "CLICK";
 const content_to_cache = [
   "index.html",
   "click.js",
@@ -27,5 +27,20 @@ self.addEventListener("fetch", (e) => {
       cache.put(e.request, response.clone());
       return response;
     })()
+  );
+});
+
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(
+        keyList.map((key) => {
+          if (key === cache_name) {
+            return;
+          }
+          return caches.delete(key);
+        })
+      );
+    })
   );
 });

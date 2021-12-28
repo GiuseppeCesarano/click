@@ -1,6 +1,7 @@
 from os import mkdir, system
 from os.path import exists, isdir
 from shutil import copy2, copytree, rmtree
+from datetime import datetime
 import sys
 
 if not (exists("dist") and isdir("dist")):
@@ -13,6 +14,7 @@ if not(exists("dist/icons/") and isdir("dist/icons/")):
     copytree("src/icons/", "dist/icons")
 
 copy2("src/index.html", "dist")
+copy2("src/sw.js", "dist")
 
 # Populating build
 
@@ -63,6 +65,13 @@ with open("dist/index.html", "r+") as index:
     index.seek(0)
     index.write(index_text)
 
+with open("dist/sw.js", "r+") as sw:
+    sw_text = sw.read()
+    sw_text = sw_text.replace(
+        "CLICK", datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+    sw.seek(0)
+    sw.write(sw_text)
+
 # Minify html
 MINIFY_CMD = "html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true --minifyURLs true {} -o {}"
 
@@ -71,7 +80,7 @@ ret += system("cd build && emcmake cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_EX
 ret += system(MINIFY_CMD.format("dist/index.html", "dist/index.html"))
 ret += system(MINIFY_CMD.format("src/manifest.webmanifest",
               "dist/manifest.webmanifest"))
-ret += system(MINIFY_CMD.format("src/sw.js", "dist/sw.js"))
+ret += system(MINIFY_CMD.format("dist/sw.js", "dist/sw.js"))
 
 if ret > 0:
     sys.exit("Build failed")
