@@ -2,11 +2,37 @@
 
 #include <algorithm>
 #include <array>
+#include <iterator>
 #include <limits>
 #include <string>
 
 namespace utl {
 const auto ERROR_CODE = std::numeric_limits<int>::min();
+
+struct is_digit : std::unary_function<char, bool> {
+  constexpr bool operator()(const char c) const
+  {
+    return (c >= '0' && c <= '9');
+  }
+};
+
+template <typename it_type, size_t jump_size = 2>
+class jumping_iterator : public it_type {
+
+  public:
+  jumping_iterator& operator++()
+  {
+    std::advance(*this, jump_size);
+    return *this;
+  }
+
+  jumping_iterator operator++(int)
+  {
+    const jumping_iterator tmp = *this;
+    std::advance(*this, jump_size);
+    return tmp;
+  }
+};
 
 int stpi(const std::string&) noexcept;
 std::string pits(int) noexcept;

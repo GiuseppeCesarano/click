@@ -14,6 +14,8 @@ class grinder {
 
   const std::initializer_list<int> FORMATTING_VALUES {};
 
+  [[nodiscard]] int dotted_parser(const std::string&) const noexcept;
+
   public:
   grinder() = default;
 
@@ -28,8 +30,6 @@ class grinder {
   {
   }
 
-  [[nodiscard]] constexpr double click_value() const noexcept;
-
   [[nodiscard]] constexpr double normalize_clicks(int) const noexcept;
 
   [[nodiscard]] constexpr int specify_clicks(double) const noexcept;
@@ -38,11 +38,9 @@ class grinder {
 
   [[nodiscard]] std::string specific_to_string(int) const noexcept;
 
-  [[nodiscard]] std::string operator<<(double) const noexcept;
+  [[nodiscard]] std::string operator[](double) const noexcept;
 
-  [[nodiscard]] constexpr double operator()(int) const noexcept;
-
-  [[nodiscard]] double operator()(const std::string&) const noexcept;
+  [[nodiscard]] double operator[](const std::string&) const noexcept;
 };
 
 // Needed to avoid a temporary creation that resoults in a non-constexpr constructor
@@ -55,11 +53,6 @@ const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { {
 return utl::map { grinders };
 }()};
 // clang-format on
-
-constexpr auto supported_grinders() noexcept
-{
-  return GRINDERS.key_list();
-}
 
 [[nodiscard]] std::string convert_setting(const auto&, const std::string&, const auto&) noexcept;
 [[nodiscard]] std::string convert_setting_id(size_t, const std::string&, size_t) noexcept;

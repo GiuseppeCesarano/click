@@ -1,22 +1,22 @@
 #include "utility.hpp"
+#include <algorithm>
 #include <cmath>
-#include <iostream>
+#include <functional>
+#include <numeric>
 #include <sstream>
 
 namespace utl {
 
 int stpi(const std::string& str) noexcept
 {
-  int res { 0 };
-  const auto RBEGIN { str.rbegin() };
+  int res { ERROR_CODE };
 
-  for (auto i = RBEGIN; i != str.rend(); ++i) {
-    if (*i > '9' || *i < '0') {
-      res = ERROR_CODE;
-      break;
-    }
-    const int BASE { 10 };
-    res += (*i - '0') * static_cast<int>(std::pow(BASE, i - RBEGIN));
+  if (std::all_of(str.begin(), str.end(), is_digit())) {
+    const char* BACK { &str.back() };
+    res = std::reduce(str.begin(), str.end(), static_cast<int>(0), [BACK](int n, const char& c) {
+      const int BASE { 10 };
+      return n + (c - '0') * static_cast<int>(std::pow(BASE, BACK - &c));
+    });
   }
 
   return res;
