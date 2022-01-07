@@ -1,5 +1,6 @@
 #include "grinders.hpp"
 #include <array>
+#include <cmath>
 #include <numeric>
 #include <string>
 #include <utility/utility.hpp>
@@ -19,6 +20,21 @@ int grinder::dotted_parser(const std::string& clicks_str) const noexcept
   return res;
 }
 
+std::string grinder::dotted_encoder(int clicks) const noexcept
+{
+  std::string ret {};
+
+  for (const auto VAL : FORMATTING_VALUES) {
+    const auto NUM = static_cast<int>(std::round(clicks / VAL));
+    clicks -= NUM * VAL;
+    ret.append(std::to_string(NUM));
+    ret.append(".");
+  }
+  ret.pop_back();
+
+  return ret;
+}
+
 constexpr double grinder::normalize_clicks(int clicks) const noexcept
 {
   return clicks * CLICK_VALUE;
@@ -36,20 +52,7 @@ int grinder::string_to_specific(const std::string& clicks_str) const noexcept
 
 std::string grinder::specific_to_string(int clicks) const noexcept
 {
-  std::string ret;
-  if (FORMATTING_VALUES.size() == 0) {
-    ret = utl::pits(clicks);
-  } else {
-    std::stringstream ss;
-    for (const auto VAL : FORMATTING_VALUES) {
-      int num = static_cast<int>(std::round(clicks / VAL));
-      ss << num << '.';
-      clicks -= num * VAL;
-    }
-    ret = ss.str();
-    ret = ret.substr(0, ret.size() - 1);
-  }
-  return ret;
+  return FORMATTING_VALUES.size() == 0 ? utl::pits(clicks) : dotted_encoder(clicks);
 }
 
 double grinder::operator[](const std::string& readable_clicks) const noexcept

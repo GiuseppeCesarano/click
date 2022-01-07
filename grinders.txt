@@ -1,6 +1,6 @@
 C40,18
 C40 Red Clicks,36
-Mini Mill,5
+Mini-Mill,5
 Mini-Slim,5
 JX-PRO,103,40,4,1
 Prism,5

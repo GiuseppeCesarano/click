@@ -1,9 +1,7 @@
 #pragma once
 #include "python_decl.hpp"
 #include <array>
-#include <cmath>
 #include <initializer_list>
-#include <sstream>
 #include <string>
 #include <string_view>
 #include <utility/utility.hpp>
@@ -15,6 +13,7 @@ class grinder {
   const std::initializer_list<int> FORMATTING_VALUES {};
 
   [[nodiscard]] int dotted_parser(const std::string&) const noexcept;
+  [[nodiscard]] std::string dotted_encoder(int) const noexcept;
 
   public:
   grinder() = default;
@@ -48,9 +47,9 @@ PYTHON_INITIALIZER
 
 // clang-format off
 const auto GRINDERS { []() consteval {
-    using namespace std::literals::string_view_literals;
-const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
-return utl::map { grinders };
+  using namespace std::literals::string_view_literals;
+  const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
+  return utl::map { grinders };
 }()};
 // clang-format on
 

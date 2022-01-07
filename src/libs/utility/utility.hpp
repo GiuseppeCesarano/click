@@ -63,10 +63,7 @@ class map {
   constexpr std::array<key, size> key_list() const
   {
     std::array<key, size> ret {};
-    auto ret_it = ret.begin();
-    for (const auto& i : data) {
-      *ret_it++ = i.first;
-    }
+    std::transform(data.begin(), data.end(), ret.begin(), [](const auto& elm) { return elm.first; });
     return ret;
   }
 };
