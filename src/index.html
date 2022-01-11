@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#7b1fa2" />
+    <link rel="icon" href="icons/favicon.ico" type="image/x-icon" />
     <link rel="manifest" href="manifest.webmanifest" />
     <title>CL!CK</title>
     <style type="text/css" media="screen">
@@ -43,7 +44,7 @@
       }
       select {
         border: 0;
-        border-right: solid #4a0072;
+        border-right: medium solid #4a0072;
         padding: 0.15em;
         text-align: center;
       }
@@ -58,7 +59,8 @@
       p {
         user-select: none;
       }
-      input:focus {
+      input:focus,
+      select:focus {
         outline: 0;
       }
       .hbox {
@@ -93,11 +95,11 @@
       .in_field {
         box-shadow: -2px 2px 2px;
         background-color: #fff;
-        border: solid #4a0072;
+        border: medium solid #4a0072;
         width: fit-content;
       }
       .in_field > select {
-        box-shadow: 1px 2px 2px;
+        box-shadow: -2px 0px 2px #000;
       }
       button {
         box-shadow: -2px 2px 2px #000;

@@ -10,7 +10,7 @@ int grinder::dotted_parser(const std::string& clicks_str) const noexcept
   int res = utl::ERROR_CODE;
   using jit = utl::jumping_iterator<std::string::const_iterator, 2>;
 
-  if ((clicks_str.size() == FORMATTING_VALUES.size() * 2 - 1) && std::all_of(jit { clicks_str.begin() }, jit { clicks_str.end() + 1 }, utl::is_digit())) {
+  if ((clicks_str.size() == FORMATTING_VALUES.size() * 2 - 1) && std::all_of(jit { clicks_str.begin() }, jit { clicks_str.end() + 1 }, utl::is_digit)) {
     jit str_itr { clicks_str.begin() };
     res = std::reduce(FORMATTING_VALUES.begin(), FORMATTING_VALUES.end(), 0, [&str_itr](int reduced, int current) {
       return reduced + current * (*str_itr++ - '0');

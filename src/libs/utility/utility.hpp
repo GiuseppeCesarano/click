@@ -9,12 +9,7 @@
 namespace utl {
 const auto ERROR_CODE = std::numeric_limits<int>::min();
 
-struct is_digit : std::unary_function<char, bool> {
-  constexpr bool operator()(const char c) const
-  {
-    return (c >= '0' && c <= '9');
-  }
-};
+[[nodiscard]] bool is_digit(char) noexcept;
 
 template <typename it_type, size_t jump_size = 2>
 class jumping_iterator : public it_type {
@@ -56,11 +51,17 @@ class map {
     return itr != data.end() ? itr->second : ERROR_VALUE;
   }
 
-  constexpr const value& operator[](size_t pos) const { return data[pos].second; }
+  [[nodiscard]] constexpr const value& operator[](size_t pos) const noexcept
+  {
+    return data[pos].second;
+  }
 
-  constexpr const value& at(size_t pos) const { return data.at(pos).second; }
+  [[nodiscard]] constexpr const value& at(size_t pos) const noexcept
+  {
+    return data.at(pos).second;
+  }
 
-  constexpr std::array<key, size> key_list() const
+  [[nodiscard]] constexpr std::array<key, size> key_list() const noexcept
   {
     std::array<key, size> ret {};
     std::transform(data.begin(), data.end(), ret.begin(), [](const auto& elm) { return elm.first; });

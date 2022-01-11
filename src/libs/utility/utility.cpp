@@ -6,6 +6,11 @@
 
 namespace utl {
 
+bool is_digit(const char c) noexcept
+{
+  return isdigit(c) != 0;
+}
+
 int stpi(const std::string& str) noexcept
 {
   auto ret = std::stoi(str);
