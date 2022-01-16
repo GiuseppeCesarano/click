@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <array>
-#include <iterator>
 #include <limits>
 #include <string>
 
@@ -26,6 +25,41 @@ class jumping_iterator : public it_type {
     const jumping_iterator tmp = *this;
     std::advance(*this, jump_size);
     return tmp;
+  }
+};
+
+template <typename it_type>
+struct range {
+  const it_type BEGIN {};
+  const it_type END {};
+
+  consteval range() = default;
+
+  template <typename T>
+  explicit consteval range(const T& c) noexcept
+      : BEGIN(c.begin())
+      , END(c.end())
+  {
+  }
+
+  [[nodiscard]] constexpr auto begin() const noexcept
+  {
+    return BEGIN;
+  }
+
+  [[nodiscard]] constexpr auto end() const noexcept
+  {
+    return END;
+  }
+
+  [[nodiscard]] constexpr auto size() const noexcept
+  {
+    return END - BEGIN;
+  }
+
+  [[nodiscard]] constexpr bool is_empty() const noexcept
+  {
+    return size() == 0;
   }
 };
 

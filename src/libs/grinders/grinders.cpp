@@ -3,6 +3,7 @@
 #include <cmath>
 #include <numeric>
 #include <string>
+#include <string_view>
 #include <utility/utility.hpp>
 
 int grinder::dotted_parser(const std::string& clicks_str) const noexcept
@@ -47,12 +48,12 @@ constexpr int grinder::specify_clicks(double clicks) const noexcept
 
 int grinder::string_to_specific(const std::string& clicks_str) const noexcept
 {
-  return FORMATTING_VALUES.size() == 0 ? utl::stpi(clicks_str) : dotted_parser(clicks_str);
+  return FORMATTING_VALUES.is_empty() ? utl::stpi(clicks_str) : dotted_parser(clicks_str);
 }
 
 std::string grinder::specific_to_string(int clicks) const noexcept
 {
-  return FORMATTING_VALUES.size() == 0 ? utl::pits(clicks) : dotted_encoder(clicks);
+  return FORMATTING_VALUES.is_empty() ? utl::pits(clicks) : dotted_encoder(clicks);
 }
 
 double grinder::operator[](const std::string& readable_clicks) const noexcept
@@ -67,8 +68,19 @@ std::string grinder::operator[](const double normalized_click) const noexcept
 
 std::string convert_setting(const auto& in_grinder, const std::string& click_str, const auto& out_grinder) noexcept
 {
+  // Needed to avoid a temporary creation that resoults in a non-constexpr constructor
+  PYTHON_INITIALIZER
+
+  // clang-format off
+  static const auto GRINDERS { []() consteval {
+    using namespace std::literals::string_view_literals;
+    constexpr std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
+    return utl::map { grinders };
+  }()};
+
   const auto NORMALIZED_CLICKS = GRINDERS[in_grinder][click_str];
   return NORMALIZED_CLICKS > 0 ? (GRINDERS[out_grinder][NORMALIZED_CLICKS]) : ":(";
+// clang-format on
 }
 
 std::string convert_setting_id(size_t in_grinder, const std::string& click_str, size_t out_grinder) noexcept

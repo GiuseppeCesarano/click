@@ -40,7 +40,7 @@ map = []
 for grinder in grinder_list:
     if len(grinder) > 2:
         vals = ','.join(grinder[2:])
-        init_list.append("constexpr std::initializer_list<int> {NAME} {{{VAL}}};\n".format(
+        init_list.append("static const std::array {NAME} {{{VAL}}};\n".format(
             NAME=grinder[0].replace('-', '_'), VAL=vals))
         map.append('{{"{NAME}"sv, grinder{{{H_CLICK}, {INIT_LIST}}}}}'.format(
             NAME=grinder[0], H_CLICK=grinder[1], INIT_LIST=grinder[0].replace('-', '_')))
@@ -51,12 +51,12 @@ for grinder in grinder_list:
 initializer_list = ''.join(init_list)
 constexpr_map = ','.join(map)
 
-with open("build/libs/grinders/grinders.hpp", "r+") as hpp:
-    hpp_text = hpp.read()
-    hpp_text = hpp_text.replace("PYTHON_INITIALIZER", initializer_list).replace(
+with open("build/libs/grinders/grinders.cpp", "r+") as cpp:
+    cpp_text = cpp.read()
+    cpp_text = cpp_text.replace("PYTHON_INITIALIZER", initializer_list).replace(
         "PYTHON_SIZE", str(len(grinder_list))).replace("PYTHON_MAP", constexpr_map)
-    hpp.seek(0)
-    hpp.write(hpp_text)
+    cpp.seek(0)
+    cpp.write(cpp_text)
 
 with open("dist/index.html", "r+") as index:
     options = []

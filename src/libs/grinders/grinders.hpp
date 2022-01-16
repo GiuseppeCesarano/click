@@ -1,16 +1,14 @@
 #pragma once
 #include "python_decl.hpp"
 #include <array>
-#include <initializer_list>
 #include <string>
-#include <string_view>
 #include <utility/utility.hpp>
-#include <utility>
 
 class grinder {
   const double CLICK_VALUE { 0.00 };
 
-  const std::initializer_list<int> FORMATTING_VALUES {};
+  using range = utl::range<std::array<int, 0>::const_iterator>;
+  const range FORMATTING_VALUES {};
 
   [[nodiscard]] int dotted_parser(const std::string&) const noexcept;
   [[nodiscard]] std::string dotted_encoder(int) const noexcept;
@@ -23,7 +21,8 @@ class grinder {
   {
   }
 
-  consteval grinder(int h_clicks, std::initializer_list<int> formatting_values)
+  template <size_t S>
+  consteval grinder(int h_clicks, const std::array<int, S>& formatting_values)
       : CLICK_VALUE(100.0 / h_clicks)
       , FORMATTING_VALUES(formatting_values)
   {
@@ -41,17 +40,6 @@ class grinder {
 
   [[nodiscard]] double operator[](const std::string&) const noexcept;
 };
-
-// Needed to avoid a temporary creation that resoults in a non-constexpr constructor
-PYTHON_INITIALIZER
-
-// clang-format off
-const auto GRINDERS { []() consteval {
-  using namespace std::literals::string_view_literals;
-  const std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
-  return utl::map { grinders };
-}()};
-// clang-format on
 
 [[nodiscard]] std::string convert_setting(const auto&, const std::string&, const auto&) noexcept;
 [[nodiscard]] std::string convert_setting_id(size_t, const std::string&, size_t) noexcept;

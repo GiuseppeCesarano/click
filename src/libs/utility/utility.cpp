@@ -1,5 +1,4 @@
 #include "utility.hpp"
-#include <algorithm>
 #include <cmath>
 #include <numeric>
 #include <string>
