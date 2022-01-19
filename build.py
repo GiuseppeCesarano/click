@@ -40,7 +40,7 @@ map = []
 for grinder in grinder_list:
     if len(grinder) > 2:
         vals = ','.join(grinder[2:])
-        init_list.append("static const std::array {NAME} {{{VAL}}};\n".format(
+        init_list.append("constexpr static std::array {NAME} {{{VAL}}};\n".format(
             NAME=grinder[0].replace('-', '_'), VAL=vals))
         map.append('{{"{NAME}"sv, grinder{{{H_CLICK}, {INIT_LIST}}}}}'.format(
             NAME=grinder[0], H_CLICK=grinder[1], INIT_LIST=grinder[0].replace('-', '_')))

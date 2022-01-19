@@ -72,7 +72,7 @@ std::string convert_setting(const auto& in_grinder, const std::string& click_str
   PYTHON_INITIALIZER
 
   // clang-format off
-  static const auto GRINDERS { []() consteval {
+  constexpr static auto GRINDERS { []() consteval {
     using namespace std::literals::string_view_literals;
     constexpr std::array<std::pair<std::string_view, grinder>, PYTHON_SIZE> grinders { { PYTHON_MAP } };
     return utl::map { grinders };
