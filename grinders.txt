@@ -10,4 +10,4 @@ Encore,14
 Chestnut,15
 Aergrind,17,10,1
 Ode,25,10,1
-Niche Zero,28
+Niche Zero,40

@@ -25,6 +25,7 @@ std::string grinder::dotted_encoder(int clicks) const noexcept
 {
   std::string ret {};
 
+#pragma unroll 3
   for (const auto VAL : FORMATTING_VALUES) {
     const auto NUM = static_cast<int>(std::round(clicks / VAL));
     clicks -= NUM * VAL;

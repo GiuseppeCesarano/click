@@ -52,7 +52,7 @@ struct range {
     return END;
   }
 
-  [[nodiscard]] constexpr auto size() const noexcept
+  [[nodiscard]] constexpr size_t size() const noexcept
   {
     return END - BEGIN;
   }
