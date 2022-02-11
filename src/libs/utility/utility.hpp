@@ -29,14 +29,14 @@ class jumping_iterator : public it_type {
 };
 
 template <typename it_type>
-struct range {
+struct non_owning_range {
   const it_type BEGIN {};
   const it_type END {};
 
-  consteval range() = default;
+  consteval non_owning_range() = default;
 
   template <typename T>
-  explicit consteval range(const T& c) noexcept
+  explicit consteval non_owning_range(const T& c) noexcept
       : BEGIN(c.begin())
       , END(c.end())
   {
@@ -70,7 +70,7 @@ template <typename key, typename value, std::size_t size>
 class map {
   using data_array = std::array<std::pair<key, value>, size>;
   data_array data {};
-  const value ERROR_VALUE {};
+  static constexpr value ERROR_VALUE {};
 
   public:
   explicit consteval map(data_array d) noexcept

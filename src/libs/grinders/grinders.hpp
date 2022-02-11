@@ -7,7 +7,7 @@
 class grinder {
   const double CLICK_VALUE { 0.00 };
 
-  using range = utl::range<std::array<int, 0>::const_iterator>;
+  using range = utl::non_owning_range<std::array<int, 0>::const_iterator>;
   const range FORMATTING_VALUES {};
 
   [[nodiscard]] int dotted_parser(const std::string&) const noexcept;
