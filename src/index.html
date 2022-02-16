@@ -1,149 +1,326 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#7b1fa2" />
-    <link rel="icon" href="icons/favicon.ico" type="image/x-icon" />
-    <link rel="manifest" href="manifest.webmanifest" />
     <title>CL!CK</title>
     <style type="text/css" media="screen">
-      @font-face {
-        font-family: "JetBrains Mono";
-        src: local("JetBrains Mono"),
-          url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Bold.woff2")
-            format("woff2"),
-          url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Bold.ttf")
-            format("truetype");
-        font-weight: Bold;
-        font-style: Bold;
-        font-display: swap;
-      }
-      * {
-        font-family: "JetBrains Mono";
-      }
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-      }
-      body {
-        background-color: #7b1fa2;
-        margin: 0;
-      }
-      h1 {
-        text-align: center;
-        color: #ffeb3b;
-        font-size: 10.2em;
-        text-shadow: -10px 10px 2px #000;
-        -webkit-text-stroke: 4px #000;
-        text-stroke: 4px #000;
-        height: fit-content;
-        user-select: none;
-      }
-      select {
-        border: 0;
-        border-right: medium solid #4a0072;
-        padding: 0.15em;
-        text-align: center;
-      }
-      input {
-        width: 4em;
-        margin-left: 0.1em;
-        border: hidden;
-        text-align: center;
-        appearance: textfield;
-        -webkit-appearance: none;
-      }
-      p {
-        user-select: none;
-      }
-      input:focus,
-      select:focus {
-        outline: 0;
-      }
-      .hbox {
-        display: flex;
-      }
-      .vbox {
-        display: flex;
-        flex-direction: column;
-      }
-      .hcenter {
-        align-items: center;
-      }
-      .cpadding > * {
-        margin: 0.5em;
-      }
-      .txtbig {
-        font-weight: 700;
-        font-size: 1.5em;
-      }
-      select,
-      input,
-      button,
-      .in_field {
-        border-radius: 20px;
-      }
-      select,
-      input {
-        font-size: 1.5em;
-        background-color: #fff;
-        color: #000;
-      }
-      .in_field {
-        box-shadow: -2px 2px 2px;
-        background-color: #fff;
-        border: medium solid #4a0072;
-        width: fit-content;
-      }
-      .in_field > select {
-        box-shadow: -2px 0px 2px #000;
-      }
-      button {
-        box-shadow: -2px 2px 2px #000;
-        margin-top: 2em;
-        color: #000;
-        background-color: #ffeb3b;
-        border-right: solid #4a0072;
-        font-size: 1.5em;
-        padding: 0.4em;
-        border: hidden;
-        font-weight: 700;
-      }
-      button:hover {
-        background-color: #ffca28;
-      }
-      @media only screen and (max-width: 600px) {
-        h1 {
-          margin-top: 0.4em;
-          font-size: 7em;
+        @font-face{
+            font-family:"JetBrains Mono";
+            src:local("JetBrains Mono"),url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/webfonts/JetBrainsMono-Bold.woff2") format("woff2"),url("https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/fonts/ttf/JetBrainsMono-Bold.ttf") format("truetype");
+            font-weight:Bold;
+            font-style:Bold;
+            font-display:swap
         }
-      }
+        h1{
+            font-size:10.2em;
+            text-shadow:-10px 10px 2px #000
+        }
+        @media only screen and (max-width:768px){
+            h1{
+                font-size:7em
+            }
+        }
+        *,::after,::before{
+            -webkit-box-sizing:border-box;
+            box-sizing:border-box;
+            border-width:0;
+            border-style:solid;
+            border-color:#e5e7eb
+        }
+        *{
+            font-family:"JetBrains Mono";
+            user-select:none
+            --tw-ring-inset:var(--tw-empty, 
+            /*!*/
+            /*!*/
+             );
+            --tw-ring-offset-width:0px;
+            --tw-ring-offset-color:#fff;
+            --tw-ring-color:rgba(59, 130, 246, 0.5);
+            --tw-ring-offset-shadow:0 0 #0000;
+            --tw-ring-shadow:0 0 #0000;
+            --tw-shadow:0 0 #0000
+        }
+        :root{
+            -moz-tab-size:4;
+            -o-tab-size:4;
+            tab-size:4
+        }
+        :-moz-focusring{
+            outline:1px dotted ButtonText
+        }
+        :-moz-ui-invalid{
+            box-shadow:none
+        }
+        ::moz-focus-inner{
+            border-style:none;
+            padding:0
+        }
+        ::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+            height:auto
+        }
+        ::-webkit-search-decoration{
+            -webkit-appearance:none
+        }
+        ::-webkit-file-upload-button{
+            -webkit-appearance:button;
+            font:inherit
+        }
+        [type=search]{
+            -webkit-appearance:textfield;
+            outline-offset:-2px
+        }
+        abbr[title]{
+            -webkit-text-decoration:underline dotted;
+            text-decoration:underline dotted
+        }
+        body{
+            margin:0;
+            font-family:inherit;
+            line-height:inherit
+        }
+        [type=button],[type=reset],[type=submit],button{
+            -webkit-appearance:button
+        }
+        button{
+            background-color:transparent;
+            background-image:none
+        }
+        [role=button],button{
+            cursor:pointer
+        }
+        html{
+            -webkit-text-size-adjust:100%;
+            font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            line-height:1.5
+        }
+        h1,p{
+            margin:0
+        }
+        input::placeholder{
+            opacity:1;
+            color:#9ca3af
+        }
+        input::webkit-input-placeholder{
+            opacity:1;
+            color:#9ca3af
+        }
+        input::-moz-placeholder{
+            opacity:1;
+            color:#9ca3af
+        }
+        input:-ms-input-placeholder{
+            opacity:1;
+            color:#9ca3af
+        }
+        input::-ms-input-placeholder{
+            opacity:1;
+            color:#9ca3af
+        }
+        button,input,select{
+            font-family:inherit;
+            font-size:100%;
+            line-height:1.15;
+            margin:0;
+            padding:0;
+            line-height:inherit;
+            color:inherit
+        }
+        button,select{
+            text-transform:none
+        }
+        .bg-purple-800{
+            --tw-bg-opacity:1;
+            background-color:rgba(91,33,182,var(--tw-bg-opacity))
+        }
+        .bg-light-50{
+            --tw-bg-opacity:1;
+            background-color:rgba(253,253,253,var(--tw-bg-opacity))
+        }
+        .bg-yellow-300{
+            --tw-bg-opacity:1;
+            background-color:rgba(252,211,77,var(--tw-bg-opacity))
+        }
+        .border-purple-900{
+            --tw-border-opacity:1;
+            border-color:rgba(76,29,149,var(--tw-border-opacity))
+        }
+        .rounded-full{
+            border-radius:9999px
+        }
+        .rounded-l-full{
+            border-top-left-radius:9999px;
+            border-bottom-left-radius:9999px
+        }
+        .rounded-r-full{
+            border-top-right-radius:9999px;
+            border-bottom-right-radius:9999px
+        }
+        .border-3{
+            border-width:3px
+        }
+        .border-4{
+            border-width:4px
+        }
+        .border-b-3{
+            border-bottom-width:3px
+        }
+        .border-t-3{
+            border-top-width:3px
+        }
+        .border-l-3{
+            border-left-width:3px
+        }
+        .border-r-3{
+            border-right-width:3px
+        }
+        .flex{
+            display:-webkit-box;
+            display:-ms-flexbox;
+            display:-webkit-flex;
+            display:flex
+        }
+        .grid{
+            display:-ms-grid;
+            display:grid
+        }
+        .contents{
+            display:contents
+        }
+        .justify-center{
+            -webkit-box-pack:center;
+            -ms-flex-pack:center;
+            -webkit-justify-content:center;
+            justify-content:center
+        }
+        .h-screen{
+            height:100vh
+        }
+        .h-full{
+            height:100%
+        }
+        .text-2xl{
+            font-size:1.5rem;
+            line-height:2rem
+        }
+        .text-xl{
+            font-size:1.25rem;
+            line-height:1.75rem
+        }
+        .mt-12{
+            margin-top:3rem
+        }
+        .mt-4{
+            margin-top:1rem
+        }
+        .mt-8{
+            margin-top:2rem
+        }
+        .overflow-hidden{
+            overflow:hidden
+        }
+        .p-2{
+            padding:.5rem
+        }
+        .shadow-lg{
+            --tw-shadow:0 10px 15px -3px rgb(0 0 0/0.1),0 4px 6px -4px rgb(0 0 0/0.1);
+            --tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color);
+            -webkit-box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+            box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)
+        }
+        .shadow-dark-900{
+            --tw-shadow-color:rgba(15, 15, 15, 1);
+            --tw-shadow:var(--tw-shadow-colored)
+        }
+        .text-center{
+            text-align:center
+        }
+        .text-yellow-300{
+            --tw-text-opacity:1;
+            color:rgba(252,211,77,var(--tw-text-opacity))
+        }
+        .text-dark-900{
+            --tw-text-opacity:1;
+            color:rgba(15,15,15,var(--tw-text-opacity))
+        }
+        .text-shadow{
+            text-shadow:0 0 1px rgb(0 0 0 / 20%),0 0 1px rgb(1 0 5 / 10%)
+        }
+        .text-stroke-dark-900{
+            --tw-text-stroke-opacity:1;
+            -webkit-text-stroke-color:rgba(15,15,15,var(--tw-text-stroke-opacity))
+        }
+        .text-stroke-4{
+            -webkit-text-stroke-width:4px
+        }
+        .antialiased{
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale
+        }
+        .flex-shrink {
+            -ms-flex-negative: 1;
+            -webkit-flex-shrink: 1;
+            flex-shrink: 1;
+        }
+        .w-screen{
+            width:100vw
+        }
+        .w-full{
+            width:100%
+        }
+        .w-24 {
+  width: 6rem;
+}
+        .grid-cols-1{
+            grid-template-columns:repeat(1,minmax(0,1fr))
+        }
+        .grid-rows-2{
+            grid-template-rows:repeat(2,minmax(0,1fr))
+        }
+        .grid-rows-4{
+            grid-template-rows:repeat(4,minmax(0,1fr))
+        }
+        @media (min-width:768px){
+            .md\:px-2{
+                padding-left:.5rem;
+                padding-right:.5rem
+            }
+        }
     </style>
   </head>
-  <body>
-    <div class="vbox hcenter">
-      <h1 id="output">CL!CK</h1>
-      <form class="vbox cpadding hcenter" onsubmit="convert();return false;">
-        <div class="in_field hbox">
-          <select name="first_grinder" id="first_grinder"><PYTHON_OPTIONS></select>
-          <input
-            type="text"
-            pattern="[0-9]*"
-            inputmode="numeric"
-            id="click_input"
-          />
+  <body class="bg-purple-800 overflow-hidden w-screen h-screen <md:px-2">
+    <div class="contents grid grid-cols-1 grid-rows-2 h-full">
+      <h1
+        class="text-center text-yellow-300 antialiased text-stroke-4 text-stroke-dark-900 mt-12" id="output"
+      >
+        CL!CK
+      </h1>
+        <form class="h-full contents grid grid-cols-1 grid-rows-4 text-2xl" onsubmit="convert();return false;">
+          <div class="flex mt-12 justify-center">
+            <div class="flex shadow-lg shadow-dark-900 rounded-full">
+              <select class="bg-light-50 text-center rounded-l-full border-b-3 border-t-3 border-l-3 border-purple-900" name="first_grinder" id="first_grinder"><PYTHON_OPTIONS></select>
+              <input
+                class="w-24 bg-light-50 text-center rounded-r-full border-t-3 border-r-3 border-b-3 border-purple-900"
+                type="text"
+                pattern="[0-9]*"
+                inputmode="numeric"
+                id="click_input"
+              />
+            </div>
         </div>
-        <p class="txtbig">TO</p>
-        <select
-          class="in_field"
-          name="second_grinder"
-          id="second_grinder"
-          ><PYTHON_OPTIONS></select>
+        <p class="text-center text-dark-900 bold text-xl mt-4">TO</p>
+        <div class="flex justify-center mt-4">
+          <select
+            class="bg-light-50 text-center rounded-l-full rounded-r-full border-3 border-purple-900 shadow-lg shadow-dark-900"
+            name="second_grinder"
+            id="second_grinder"
+            ><PYTHON_OPTIONS></select>
+        </div>
+        <div class="flex justify-center mt-8">
+          <button type="button" class="bg-yellow-300 text-dark-900 rounded-full border-4 border-purple-900 p-2 shadow-lg shadow-dark-900" onclick="convert()">CONVERT⚡</button>
+        </div>
       </form>
-      <button onclick="convert()">CONVERT!</button>
     </div>
   </body>
   <script src="click.js"></script>

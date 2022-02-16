@@ -12,5 +12,6 @@ target_include_directories(click PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 set_target_properties(click PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../dist")
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  add_compile_definitions(_LIBCPP_ABI_UNSTABLE=1)
   set_target_properties(click PROPERTIES LINK_FLAGS "--bind --flto=thin --fexperimental-new-pass-manager")
 endif()
