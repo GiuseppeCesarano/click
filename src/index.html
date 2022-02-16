@@ -33,10 +33,7 @@
         *{
             font-family:"JetBrains Mono";
             user-select:none;
-            --tw-ring-inset:var(--tw-empty, 
-            /*!*/
-            /*!*/
-             );
+            --tw-ring-inset:var(--tw-empty);
             --tw-ring-offset-width:0px;
             --tw-ring-offset-color:#fff;
             --tw-ring-color:rgba(59, 130, 246, 0.5);
@@ -301,13 +298,13 @@
         <form class="h-full contents grid grid-cols-1 grid-rows-4 text-2xl" onsubmit="convert();return false;">
           <div class="flex mt-12 justify-center">
             <div class="flex shadow-lg shadow-dark-900 rounded-full">
-              <select class="bg-light-50 text-center rounded-l-full border-b-3 border-t-3 border-l-3 border-purple-900" name="first_grinder" id="first_grinder"><PYTHON_OPTIONS></select>
+              <select onchange="change_placeholder()" class="bg-light-50 text-center rounded-l-full border-b-3 border-t-3 border-l-3 border-purple-900" id="first_grinder"><PYTHON_OPTIONS></select>
               <input
+                id="click_input"
                 class="w-24 bg-light-50 text-center rounded-r-full border-t-3 border-r-3 border-b-3 border-purple-900"
                 type="text"
                 pattern="[0-9]*"
                 inputmode="numeric"
-                id="click_input"
               />
             </div>
         </div>
@@ -315,7 +312,6 @@
         <div class="flex justify-center mt-4">
           <select
             class="bg-light-50 text-center rounded-l-full rounded-r-full border-3 border-purple-900 shadow-lg shadow-dark-900"
-            name="second_grinder"
             id="second_grinder"
             ><PYTHON_OPTIONS></select>
         </div>
@@ -327,10 +323,19 @@
   </body>
   <script src="click.js"></script>
   <script charset="utf-8">
+    Module.onRuntimeInitialized = ()=>{
+      document.getElementById("click_input").placeholder = Module.default_setting(0);
+    };
 
     if('serviceWorker' in navigator) {
       navigator.serviceWorker.register("sw.js");
     };
+
+    function change_placeholder(){
+       var click_input = document.getElementById("click_input");
+       click_input.placeholder = Module.default_setting(document.getElementById("first_grinder").selectedIndex);
+       click_input.value = "";
+    }
 
     function convert() {
       document.getElementById("output").textContent = Module.convert_setting(
@@ -339,5 +344,6 @@
         document.getElementById("second_grinder").selectedIndex
       );
     }
+    
   </script>
 </html>
