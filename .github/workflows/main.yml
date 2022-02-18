@@ -22,6 +22,7 @@ jobs:
       - name: Install and Build 🔧
         run: |          
           npm i -g html-minifier
+          npm i -g workbox-cli
           python3 build.py
 
       - name: Deploy 🚀
