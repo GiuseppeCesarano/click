@@ -23,6 +23,7 @@ copytree("src/libs", "build/libs")
 
 copy2("src/CMakeLists.txt", "build")
 copy2("src/bindings.cpp", "build")
+copy2("src/JetBrainsMono-Bold.woff2", "dist")
 
 grinder_list = []
 with open("grinders.txt") as grinders_file:
