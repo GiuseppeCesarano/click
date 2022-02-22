@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang = "en">
   <head>
+    <script async src="click.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width"/>
     <meta name="theme-color" content="#6b21a8"/>
     <meta name="description" content="Convert coffee grinder settings! Comandante C40 to Niche Zero, Comandante C40 to 1zpresso Jx-Pro, Hario mini-mill to Niche and much more!"/>
+    <meta name="google-site-verification" content="A85VQvfiDML8jLI5xSkNJUNsVpeYEbYftihcfPUtBnE" />
     <meta name="robots" content="index, follow"/>
     <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
     <link rel="manifest" href="manifest.webmanifest">
@@ -349,27 +351,7 @@
   <footer class="absolute bottom-0 w-screen bg-dark-900 h-14">
     <p class="text-center mt-3 text-yellow-300"><a id="install" class="text-yellow-300" href="https://github.com/GiuseppeCesarano/click">GitHub</a> • <a class="text-yellow-300" href="https://github.com/GiuseppeCesarano/click/issues">FeedBack</a> • Help</p>
   </footer>
-  <script src="click.js"></script>
   <script charset="utf-8">
-    Module.onRuntimeInitialized = ()=>{
-      document.getElementById("click_input").placeholder = Module.default_setting(0);
-    };
-
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      let install = document.getElementById("install");
-      install.textContent = "Install";
-      install.href = "#";
-      install.addEventListener("click",()=>{
-        deferredPrompt.prompt();
-      });
-    });
-
-    if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    };
 
     function change_placeholder(){
        var click_input = document.getElementById("click_input");
@@ -384,6 +366,27 @@
         document.getElementById("second_grinder").selectedIndex
       );
     }
+
+    function whenAvailable(name, callback) {
+      var interval = 8; // ms
+      window.setTimeout(function() {
+        if (window[name]) {
+          callback(window[name]);
+        } else {
+          whenAvailable(name, callback);
+        }
+      }, interval);
+    }
     
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    };
+
+    whenAvailable("Module", ()=>{
+      Module.onRuntimeInitialized = ()=>{
+        document.getElementById("click_input").placeholder = Module.default_setting(0);
+      };
+    });
+
   </script>
 </html>
