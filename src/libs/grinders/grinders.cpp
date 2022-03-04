@@ -3,6 +3,7 @@
 #include <array>
 #include <cmath>
 #include <numeric>
+#include <span>
 #include <string>
 #include <string_view>
 #include <utility/utility.hpp>
@@ -11,7 +12,7 @@ namespace {
 class grinder {
   const double CLICK_VALUE { 0.00 };
 
-  using range = utl::non_owning_range<std::array<int, 0>::const_iterator>;
+  using range = utl::non_owning_range<std::span<int>::const_pointer>;
   const range FORMATTING_VALUES {};
 
   [[nodiscard]] int dotted_parser(const std::string& clicks_str) const noexcept
@@ -21,7 +22,7 @@ class grinder {
 
     if ((clicks_str.size() == FORMATTING_VALUES.size() * 2 - 1) && std::all_of(jit { clicks_str.begin() }, jit { clicks_str.end() + 1 }, utl::is_digit)) {
       jit str_itr { clicks_str.begin() };
-      res = std::reduce(FORMATTING_VALUES.begin(), FORMATTING_VALUES.end(), 0, [&str_itr](int reduced, int current) {
+      res = std::reduce(FORMATTING_VALUES.begin(), FORMATTING_VALUES.end(), 0, [&str_itr](const int reduced, const int current) {
         return reduced + current * (*str_itr++ - '0');
       });
     }
@@ -70,7 +71,7 @@ class grinder {
     return static_cast<int>(std::round(clicks / CLICK_VALUE));
   }
 
-  [[nodiscard]] int string_to_specific(const std::string& clicks_str) const noexcept
+  [[nodiscard]] constexpr int string_to_specific(const std::string& clicks_str) const noexcept
   {
     return FORMATTING_VALUES.is_empty() ? utl::stpi(clicks_str) : dotted_parser(clicks_str);
   }
@@ -85,7 +86,7 @@ class grinder {
     return specific_to_string(specify_clicks(normalized_click));
   }
 
-  [[nodiscard]] double operator[](const std::string& readable_clicks) const noexcept
+  [[nodiscard]] constexpr double operator[](const std::string& readable_clicks) const noexcept
   {
     return normalize_clicks(string_to_specific(readable_clicks));
   }
