@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(CL!CK VERSION 1)
 
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 add_subdirectory(libs/utility)
 add_subdirectory(libs/grinders)
 
@@ -14,5 +15,5 @@ set_target_properties(click PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   add_compile_definitions(_LIBCPP_ABI_UNSTABLE=1)
   set_target_properties(click PROPERTIES LINK_FLAGS "--bind")
-  target_compile_options(click PRIVATE -Wall -Wextra -pedantic -Werror -Wno-sign-compare -flto -fexperimental-new-pass-manager)
+  target_compile_options(click PRIVATE -Wall -Wextra -pedantic -Werror -Wno-sign-compare)
 endif()
