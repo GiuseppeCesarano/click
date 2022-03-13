@@ -15,7 +15,7 @@ class grinder {
   using range = utl::non_owning_range<std::span<int>::const_pointer>;
   const range FORMATTING_VALUES {};
 
-  [[nodiscard]] int dotted_parser(const std::string& clicks_str) const noexcept
+  [[nodiscard]] constexpr int dotted_parser(const std::string& clicks_str) const noexcept
   {
     int res = utl::ERROR_CODE;
     using jit = utl::jumping_iterator<std::string::const_iterator, 2>;
@@ -47,15 +47,15 @@ class grinder {
   }
 
   public:
-  grinder() = default;
+  constexpr grinder() = default;
 
-  explicit consteval grinder(const int h_clicks)
+  explicit consteval grinder(const int h_clicks) noexcept
       : CLICK_VALUE(100.0 / h_clicks)
   {
   }
 
   template <size_t S>
-  consteval grinder(const int h_clicks, const std::array<int, S>& formatting_values)
+  consteval grinder(const int h_clicks, const std::array<int, S>& formatting_values) noexcept
       : CLICK_VALUE(100.0 / h_clicks)
       , FORMATTING_VALUES(formatting_values)
   {

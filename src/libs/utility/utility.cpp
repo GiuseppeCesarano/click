@@ -12,7 +12,7 @@ bool is_digit(const char c) noexcept
 
 int stpi(const std::string& str) noexcept
 {
-  auto ret = std::stoi(str);
+  const auto ret = std::stoi(str);
   return ret > 0 ? ret : ERROR_CODE;
 }
 
