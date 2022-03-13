@@ -54,7 +54,7 @@ struct non_owning_range {
 
   [[nodiscard]] constexpr size_t size() const noexcept
   {
-    return END - BEGIN;
+    return static_cast<size_t>(END - BEGIN);
   }
 
   [[nodiscard]] constexpr bool is_empty() const noexcept
