@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(CL!CK VERSION 1)
 
+option(LIBCXX_ABI_UNSTABLE "Unstable ABI of libc++." ON)
+
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
-set(CMAKE_CXX_COMPILE_OPTIONS_IPO "-flto")
+set(CMAKE_CXX_COMPILE_OPTIONS_IPO "-flto=full")
 set(default_warnings -pedantic -Wall -Wextra -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs  -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused)
 set(CXX_EXTENSIONS OFF)
 
@@ -17,7 +19,6 @@ target_include_directories(click PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 set_target_properties(click PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../dist")
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-  add_compile_definitions(_LIBCPP_ABI_UNSTABLE=1)
   target_link_options(click PRIVATE --bind)
   target_compile_options(click PRIVATE ${default_warnings})
 endif()
